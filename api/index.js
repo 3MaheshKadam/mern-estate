@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
+import userRouter from './routers/user.router.js'
 dotenv.config();
 
 mongoose
@@ -17,6 +18,8 @@ mongoose
   });
 
 const app = express();
+
+app.use("/api/user",userRouter);
 
 app.use(express.json());
 
