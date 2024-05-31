@@ -16,6 +16,9 @@ export default {
         'footer-background': '#34495E',
         'secondary-dark': '#2c3e50',
       },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(135deg, #000080, #800020)',
+      }
     },
   },
   plugins: [],
