@@ -1,9 +1,65 @@
-import React from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const SignUp = () => {
-  return (
-    <div>SignUp</div>
-  )
-}
+  const [formData, setFormData] = useState({});
+  
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+    console.log(formData);
+  };
 
-export default SignUp
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    console.log(data);
+  };
+
+  return (
+    <div className="p-3 mx-auto max-w-lg my-20 bg-footer-background border rounded-xl">
+      <h1 className="text-3xl text-center font-semibold my-7">Sign-up</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input
+          type="text"
+          placeholder="username"
+          className="border p-3 rounded-lg"
+          id="username"
+          onChange={handleChange}
+        />
+        <input
+          type="email"
+          placeholder="email"
+          className="border p-3 rounded-lg"
+          id="email"
+          onChange={handleChange}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          className="border p-3 rounded-lg"
+          id="password"
+          onChange={handleChange}
+        />
+        <button className="bg-accent text-white p-3 rounded-lg uppercase hover:text-secondary">
+          Sign-Up
+        </button>
+      </form>
+      <div className="flex gap-2 text-sm mt-3">
+        <span className="text-gray-500">Have an Account?</span>
+        <Link to="/signin" className="text-sm text-blue-500">Sign In</Link>
+      </div>
+    </div>
+  );
+};
+
+export default SignUp;
