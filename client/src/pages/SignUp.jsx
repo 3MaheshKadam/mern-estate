@@ -69,7 +69,7 @@ const SignUp = () => {
           id="password"
           onChange={handleChange}
         />
-        <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:text-secondary">
+        <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
           Sign-Up
         </button>
         <OAuth/>
@@ -78,6 +78,8 @@ const SignUp = () => {
         <span className="text-gray-500">Have an Account?</span>
         <Link to="/signin" className="text-sm text-blue-500">Sign In</Link>
       </div>
+      {error && <p className='text-red-500 mt-5'>{error}</p>}
+
     </div>
   );
 };

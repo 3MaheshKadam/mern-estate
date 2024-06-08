@@ -8,7 +8,9 @@ import {
 } from 'firebase/storage';
 import { app } from '../firebase';
 
-import { updateUserStart ,updateUserSuccess , updateUserFailure } from '../redux/user/userSlice';
+import { updateUserStart ,updateUserSuccess , updateUserFailure ,
+  deleteUserStart , deleteUserFailure ,deleteUserSuccess
+} from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 const Profile = () => {
@@ -81,6 +83,23 @@ const Profile = () => {
       dispatch(updateUserFailure(error.message));
     }
   };
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
   return (
     <div className= 'rounded-lg shadow-lg mt-20 border-x-green-200 mx-auto p-4 max-w-lg'>
       <h1 className='text-3xl font-semibold text-center my-7'>
@@ -103,7 +122,7 @@ const Profile = () => {
         <img
           onClick={() => fileRef.current.click()}
           src={formData.avatar || currentUser.avatar}
-          alt='profile'
+          alt='-Pic-'
           className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
         />
         <p className='text-sm self-center'>
@@ -151,7 +170,12 @@ const Profile = () => {
       </form>
 
       <div className="flex justify-between mt-5">
-        <span className='text-red-500 cursor-pointer'>Delete account</span>
+      <span
+          onClick={handleDeleteUser}
+          className='text-red-500 cursor-pointer'
+        >
+          Delete account
+        </span>        
         <span className='text-red-500 cursor-pointer'>Sign out</span>
 
       </div>
