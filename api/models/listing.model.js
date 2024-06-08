@@ -1,4 +1,3 @@
-import { request } from "express";
 import mongoose  from "mongoose";
 const listingSchema = new mongoose.Schema(
     {
@@ -19,6 +18,10 @@ const listingSchema = new mongoose.Schema(
             required: true,
         },
         discountPrice:{
+            type:Number,
+            required: true,
+        },
+        bathrooms:{
             type:Number,
             required: true,
         },
