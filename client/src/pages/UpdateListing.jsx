@@ -9,6 +9,8 @@ import { app } from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const USD_TO_INR = 82;
+
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ export default function CreateListing() {
     };
 
     fetchListing();
-  }, []);
+  }, [params.listingId]);
 
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -162,13 +164,17 @@ export default function CreateListing() {
       setLoading(false);
       if (data.success === false) {
         setError(data.message);
+      } else {
+        navigate(`/listing/${data._id}`);
       }
-      navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   };
+
+  const convertToINR = (priceInUSD) => priceInUSD * USD_TO_INR;
+
   return (
     <main className='p-3 max-w-4xl mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>
@@ -296,9 +302,9 @@ export default function CreateListing() {
                 value={formData.regularPrice}
               />
               <div className='flex flex-col items-center'>
-                <p>Regular price</p>
+                <p>Regular price ({convertToINR(formData.regularPrice)} ₹)</p>
                 {formData.type === 'rent' && (
-                  <span className='text-xs'>($ / month)</span>
+                  <span className='text-xs'>(/ month)</span>
                 )}
               </div>
             </div>
@@ -315,9 +321,9 @@ export default function CreateListing() {
                   value={formData.discountPrice}
                 />
                 <div className='flex flex-col items-center'>
-                  <p>Discounted price</p>
+                  <p>Discounted price ({convertToINR(formData.discountPrice)} ₹)</p>
                   {formData.type === 'rent' && (
-                    <span className='text-xs'>($ / month)</span>
+                    <span className='text-xs'>(/ month)</span>
                   )}
                 </div>
               </div>
