@@ -155,7 +155,7 @@ export default function CreateListing() {
   };
   return (
     <main className='p-3 max-w-4xl mx-auto'>
-      <h1 className='text-3xl font-semibold text-center my-7'>
+      <h1 className='text-3xl font-semibold text-center my-7 bg-gray-100 p-4 shadow-lg rounded-xl'>
         Create a Listing
       </h1>
       <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4 bg-gray-100 p-4 shadow-lg rounded-xl'>
@@ -268,42 +268,42 @@ export default function CreateListing() {
               />
               <p>Baths</p>
             </div>
-          </div>
-          <div className='flex gap-6 flex-wrap'>
             <div className='flex items-center gap-2'>
               <input
                 type='number'
                 id='regularPrice'
+                min='50'
+                max='10000000'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
-                min='50'
-                max='40000000'
                 onChange={handleChange}
                 value={formData.regularPrice}
               />
-              {formData.type === 'rent' ? (
-                <div className='flex items-center'>
-                  <p>₹ / month</p>
-                </div>
-              ) : (
-                <p>₹</p>
-              )}
+              <div className='flex flex-col items-center'>
+                <p>Regular price</p>
+                {formData.type === 'rent' && (
+                  <span className='text-xs'>(₹ / month)</span>
+                )}
+              </div>
             </div>
             {formData.offer && (
               <div className='flex items-center gap-2'>
                 <input
                   type='number'
                   id='discountPrice'
-                  required={formData.offer}
+                  min='0'
+                  max='10000000'
+                  required
                   className='p-3 border border-gray-300 rounded-lg'
-                  min='50'
-                  max='40000000'
                   onChange={handleChange}
                   value={formData.discountPrice}
                 />
-                <div className='flex items-center'>
+                <div className='flex flex-col items-center'>
                   <p>Discounted price</p>
-                  <span className='text-xs'>(₹ / month)</span>
+
+                  {formData.type === 'rent' && (
+                    <span className='text-xs'>(₹ / month)</span>
+                  )}
                 </div>
               </div>
             )}
@@ -329,7 +329,7 @@ export default function CreateListing() {
               type='button'
               disabled={uploading}
               onClick={handleImageSubmit}
-              className='p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'
+              className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'
             >
               {uploading ? 'Uploading...' : 'Upload'}
             </button>
