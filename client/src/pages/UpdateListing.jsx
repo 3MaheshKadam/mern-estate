@@ -177,15 +177,15 @@ export default function CreateListing() {
 
   return (
     <main className='p-3 max-w-4xl mx-auto'>
-      <h1 className='text-3xl font-semibold text-center my-7'>
+      <h1 className='text-3xl font-semibold text-center my-7 bg-gray-100 p-4 shadow-lg rounded-xl'>
         Update a Listing
       </h1>
-      <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4'>
+      <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4 bg-gray-100 p-4 shadow-lg rounded-xl'>
         <div className='flex flex-col gap-4 flex-1'>
           <input
             type='text'
             placeholder='Name'
-            className='border p-3 rounded-lg'
+            className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
             id='name'
             maxLength='62'
             minLength='10'
@@ -196,7 +196,7 @@ export default function CreateListing() {
           <textarea
             type='text'
             placeholder='Description'
-            className='border p-3 rounded-lg'
+            className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
             id='description'
             required
             onChange={handleChange}
@@ -205,7 +205,7 @@ export default function CreateListing() {
           <input
             type='text'
             placeholder='Address'
-            className='border p-3 rounded-lg'
+            className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
             id='address'
             required
             onChange={handleChange}
@@ -271,7 +271,7 @@ export default function CreateListing() {
                 min='1'
                 max='10'
                 required
-                className='p-3 border border-gray-300 rounded-lg'
+                className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 onChange={handleChange}
                 value={formData.bedrooms}
               />
@@ -284,7 +284,7 @@ export default function CreateListing() {
                 min='1'
                 max='10'
                 required
-                className='p-3 border border-gray-300 rounded-lg'
+                className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 onChange={handleChange}
                 value={formData.bathrooms}
               />
@@ -297,7 +297,7 @@ export default function CreateListing() {
                 min='50'
                 max='10000000'
                 required
-                className='p-3 border border-gray-300 rounded-lg'
+                className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 onChange={handleChange}
                 value={formData.regularPrice}
               />
@@ -316,12 +316,14 @@ export default function CreateListing() {
                   min='0'
                   max='10000000'
                   required
-                  className='p-3 border border-gray-300 rounded-lg'
+                  className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleChange}
                   value={formData.discountPrice}
                 />
                 <div className='flex flex-col items-center'>
-                  <p>Discounted price ({convertToINR(formData.discountPrice)} ₹)</p>
+                  <p>
+                    Discount ({convertToINR(formData.discountPrice)} ₹)
+                  </p>
                   {formData.type === 'rent' && (
                     <span className='text-xs'>(/ month)</span>
                   )}
@@ -330,7 +332,7 @@ export default function CreateListing() {
             )}
           </div>
         </div>
-        <div className='flex flex-col flex-1 gap-4'>
+        <div className='flex flex-col gap-4 flex-1'>
           <p className='font-semibold'>
             Images:
             <span className='font-normal text-gray-600 ml-2'>
@@ -340,7 +342,7 @@ export default function CreateListing() {
           <div className='flex gap-4'>
             <input
               onChange={(e) => setFiles(e.target.files)}
-              className='p-3 border border-gray-300 rounded w-full'
+              className='p-3 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500'
               type='file'
               id='images'
               accept='image/*'
@@ -372,7 +374,7 @@ export default function CreateListing() {
                 <button
                   type='button'
                   onClick={() => handleRemoveImage(index)}
-                  className='p-3 text-red-700 rounded-lg uppercase hover:opacity-75'
+                  className='p-3 text-blue-700  rounded-lg uppercase hover:opacity-75'
                 >
                   Delete
                 </button>
@@ -380,7 +382,7 @@ export default function CreateListing() {
             ))}
           <button
             disabled={loading || uploading}
-            className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+            className='p-3 bg-red-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
           >
             {loading ? 'Updating...' : 'Update listing'}
           </button>

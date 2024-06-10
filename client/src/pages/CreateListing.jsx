@@ -32,6 +32,7 @@ export default function CreateListing() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   console.log(formData);
+
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -153,6 +154,7 @@ export default function CreateListing() {
       setLoading(false);
     }
   };
+
   return (
     <main className='p-3 max-w-4xl mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7 bg-gray-100 p-4 shadow-lg rounded-xl'>
@@ -163,7 +165,7 @@ export default function CreateListing() {
           <input
             type='text'
             placeholder='Name'
-            className='border p-3 rounded-lg'
+            className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
             id='name'
             maxLength='62'
             minLength='10'
@@ -174,7 +176,7 @@ export default function CreateListing() {
           <textarea
             type='text'
             placeholder='Description'
-            className='border p-3 rounded-lg'
+            className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
             id='description'
             required
             onChange={handleChange}
@@ -183,7 +185,7 @@ export default function CreateListing() {
           <input
             type='text'
             placeholder='Address'
-            className='border p-3 rounded-lg'
+            className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
             id='address'
             required
             onChange={handleChange}
@@ -249,7 +251,7 @@ export default function CreateListing() {
                 min='1'
                 max='10'
                 required
-                className='p-3 border border-gray-300 rounded-lg'
+                className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 onChange={handleChange}
                 value={formData.bedrooms}
               />
@@ -262,7 +264,7 @@ export default function CreateListing() {
                 min='1'
                 max='10'
                 required
-                className='p-3 border border-gray-300 rounded-lg'
+                className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 onChange={handleChange}
                 value={formData.bathrooms}
               />
@@ -275,7 +277,7 @@ export default function CreateListing() {
                 min='50'
                 max='10000000'
                 required
-                className='p-3 border border-gray-300 rounded-lg'
+                className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 onChange={handleChange}
                 value={formData.regularPrice}
               />
@@ -294,12 +296,12 @@ export default function CreateListing() {
                   min='0'
                   max='10000000'
                   required
-                  className='p-3 border border-gray-300 rounded-lg'
+                  className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleChange}
                   value={formData.discountPrice}
                 />
                 <div className='flex flex-col items-center'>
-                  <p>Discounted price</p>
+                  <p>Discount</p>
 
                   {formData.type === 'rent' && (
                     <span className='text-xs'>(₹ / month)</span>
@@ -312,14 +314,14 @@ export default function CreateListing() {
         <div className='flex flex-col gap-4 flex-1'>
           <p className='font-semibold'>
             Images:
-            <span className='font-normal text-gray-600 ml-2'>
+            <span className='font-normal text-gray-600 ml-2 '>
               The first image will be the cover (max 6)
             </span>
           </p>
           <div className='flex gap-4'>
             <input
               onChange={(e) => setFiles(e.target.files)}
-              className='p-3 border border-gray-300 rounded w-full'
+              className='p-3 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500'
               type='file'
               id='images'
               accept='image/*'
